@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentMinTemp = document.getElementById("min-temp");
     let windSpeed = document.getElementById("wind-info");
     let humidity = document.getElementById("humidity-info");
-    let visibility = document.getElementById("visibility-info");
+    let visibilityInfo = document.getElementById("visibility-info");
 
     const API_key = "51a3ad615fcd7eef651c364a03d5f1a5";
     
@@ -71,12 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const data = await response.json();
+        console.log(data);
+        
         return data;
         
     }
 
-    function displayWeatherData(data){
-        const { name, main, weather } = data;
+    async function displayWeatherData(data){
+        const { name, main, weather, wind, visibility} = data;
         displayedData.classList.remove("hidden");
         document.getElementById("welcome-text").classList.add("hidden");
         currentCity.textContent = name;
@@ -89,7 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentMinTemp.textContent = `Min: ${Math.round(main.temp_min)}\u00B0`;
         windSpeed.textContent = `${wind.speed} km/h`;
         humidity.textContent = `${main.humidity}%`;
-        visibility.textContent = `${visibility/1000} km`
+        visibilityInfo.textContent = `${visibility/1000} km`;
+        console.log(visibility/1000);
+        
 
     }
 
